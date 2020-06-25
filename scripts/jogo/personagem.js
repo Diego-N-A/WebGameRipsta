@@ -22,7 +22,7 @@ class Personagem extends Animacao{
             this.jumps = 0;
         }
     }
-    estaColidindo(){
+    estaColidindo(inimigo){
         const precisao = .7
         const colisao = collideRectRect(
             this.x, 

@@ -9,6 +9,6 @@ class Pontuacao {
         text(parseInt(this.pontos), width - 30, 50)
     }
     adicionarPonto() {
-        this.pontos = this.ponto + 0.2
+        this.pontos = this.pontos + 0.2
     }
 }
