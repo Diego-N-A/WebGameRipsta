@@ -1,51 +1,22 @@
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    cenario = new Cenario(imagemCenario, 3); 
-    pontuacao = new Pontuacao();
-    personagem = new Personagem(matrizPersonagem, imagemPersonagem, 0, 30, 110, 135, 220, 270);
-    const inimigo = new Inimigo(matrizInimigo, imagemInimigo, width - 50, 30, 52, 52, 104, 104, 10, 100);
-    const inimigoVoador = new Inimigo(matrizInimigoVoador, imagemInimigoVoador, width - 50, 200, 100, 75, 200, 150, 10, 300);
-    const inimigoGrande = new Inimigo(matrizInimigoGrande, imagemInimigoGrande, width, 0, 200, 200, 400, 400, 15, 500);
-
-    inimigos.push(inimigo);
-    inimigos.push(inimigoVoador);
-    inimigos.push(inimigoGrande);
-
     frameRate(40);
     somDoJogo.loop();
+    telaInicial = new TelaInicial();
+    jogo = new Jogo();
+
+    cenas = {
+        jogo,
+        telaInicial
+    }
+    jogo.setup();
+    botaoGerenciador = new BotaoGerenciador('Iniciar', width/2, height/2);
 }
 
 function keyPressed() {
-    if(key === "ArrowUp") {
-            personagem.pula();
-            somDoPulo.play();
-    }
+    jogo.keyPressed(key);
 }
 
 function draw() {
-    cenario.exibe();
-    cenario.move();
-    pontuacao.exibe();
-    pontuacao.adicionarPonto();
-    personagem.exibe();
-    personagem.aplicaGravidade();
-
-    const inimigo = inimigos[inimigoAtual];
-    const inimigoVisivel = inimigo.x <- inimigo.largura;
-
-    inimigo.exibe()
-    inimigo.move()
-        
-    if (inimigoVisivel) {
-        inimigoAtual++;
-        if (inimigoAtual > 2) {
-			inimigoAtual = 0;
-		}
-		inimigo.velocidade = parseInt(random(10, 30));
-    }
-
-    if (personagem.estaColidindo(inimigo)) {
-        image(imagemGameOver, width/2 - 200, height/3)
-        //noLoop();
-    }  
+    cenas[cenaAtual].draw();
 }
